@@ -5,14 +5,89 @@
        Modificado e adptado por Jorge Antunes-->
 
 <head>
-    <title>Escola do Coração</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v7.0.0/dist/aframe-extras.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
-   
-    <link rel="stylesheet" type="text/css" href="style.css" />
 
+    <style>
+        /* Personalização UI MindAR */
+        #example-scanning-overlay {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            background: transparent;
+            z-index: 2;
+        }
+
+        @media (min-aspect-ratio: 1/1) {
+            #example-scanning-overlay .inner {
+                width: 50vh;
+                height: 50vh;
+            }
+        }
+
+        @media (max-aspect-ratio: 1/1) {
+            #example-scanning-overlay .inner {
+                width: 80vw;
+                height: 80vw;
+            }
+        }
+
+        #example-scanning-overlay .inner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+
+            background:
+                linear-gradient(to right, white 10px, transparent 10px) 0 0,
+                linear-gradient(to right, white 10px, transparent 10px) 0 100%,
+                linear-gradient(to left, white 10px, transparent 10px) 100% 0,
+                linear-gradient(to left, white 10px, transparent 10px) 100% 100%,
+                linear-gradient(to bottom, white 10px, transparent 10px) 0 0,
+                linear-gradient(to bottom, white 10px, transparent 10px) 100% 0,
+                linear-gradient(to top, white 10px, transparent 10px) 0 100%,
+                linear-gradient(to top, white 10px, transparent 10px) 100% 100%;
+            background-repeat: no-repeat;
+            background-size: 40px 40px;
+        }
+
+        #example-scanning-overlay.hidden {
+            display: none;
+        }
+
+        #example-scanning-overlay img {
+            opacity: 0.6;
+            width: 90%;
+            align-self: center;
+        }
+
+        #example-scanning-overlay .inner .scanline {
+            position: absolute;
+            width: 100%;
+            height: 10px;
+            background: white;
+            animation: move 2s linear infinite;
+        }
+
+        @keyframes move {
+
+            0%,
+            100% {
+                top: 0%
+            }
+
+            50% {
+                top: calc(100% - 10px)
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -34,14 +109,14 @@
             <img id="infopanel" crossorigin="anonymous" src="./assets/PainelNFO.png" />
             <img id="iPainelLegenda00" crossorigin="anonymous" src="./assets/PaineisInfo/Painel00Legenda.png" />
             <img id="iPainelLegenda01" crossorigin="anonymous" src="./assets/PaineisInfo/Painel01Legenda.png" />
-            <img id="iPainelLegenda02" crossorigin="anonymous" src="./assets/PaineisInfo/Painel02Legenda.png" />
-            <img id="iPainelLegenda03" crossorigin="anonymous" src="./assets/PaineisInfo/Painel03Legenda.png" />
-            <img id="iPainelLegenda04" crossorigin="anonymous" src="./assets/PaineisInfo/Painel04Legenda.png" />
-            <img id="iPainelLegenda05" crossorigin="anonymous" src="./assets/PaineisInfo/Painel05Legenda.png" />
-            <img id="iPainelLegenda06" crossorigin="anonymous" src="./assets/PaineisInfo/Painel06Legenda.png" />
-            <img id="iPainelLegenda07" crossorigin="anonymous" src="./assets/PaineisInfo/Painel07Legenda.png" />
-            <img id="iPainelLegenda08" crossorigin="anonymous" src="./assets/PaineisInfo/Painel08Legenda.png" />
-            <img id="iPainelLegenda09" crossorigin="anonymous" src="./assets/PaineisInfo/Painel09Legenda.png" />
+            <img id="iPainelLegenda02" crossorign="anonymous" src="./assets/PaineisInfo/Painel02Legenda.png" />
+            <img id="iPainelLegenda03" crossorign="anonymous" src="./assets/PaineisInfo/Painel03Legenda.png" />
+            <img id="iPainelLegenda04" crossorign="anonymous" src="./assets/PaineisInfo/Painel04Legenda.png" />
+            <img id="iPainelLegenda05" crossorign="anonymous" src="./assets/PaineisInfo/Painel05Legenda.png" />
+            <img id="iPainelLegenda06" crossorign="anonymous" src="./assets/PaineisInfo/Painel06Legenda.png" />
+            <img id="iPainelLegenda07" crossorign="anonymous" src="./assets/PaineisInfo/Painel07Legenda.png" />
+            <img id="iPainelLegenda08" crossorign="anonymous" src="./assets/PaineisInfo/Painel08Legenda.png" />
+            <img id="iPainelLegenda09" crossorign="anonymous" src="./assets/PaineisInfo/Painel09Legenda.png" />
             <img id="iPainelLegenda10" crossorigin="anonymous" src="./assets/PaineisInfo/Painel10Legenda.png" />
 
             <!-- Audio assets -->
@@ -60,12 +135,15 @@
 
         </a-assets>
 
-        <a-entity id="player" sound="src: #SoundAmbi; volume: 0.1; autoplay: true; loop: true"></a-entity> 
+        <a-entity id="player" sound="src: #SoundAmbi; volume: 0.1; autoplay: true; loop: true"></a-entity>
+            <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+        </a-entity>
         <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
         <!-- JardimCMBB PAINEIS -------------------------------->
         <!-- Painel 01 -->
         <a-entity mindar-image-target="targetIndex: 0">
+            <!-- <a-plane src="#card" position="0 0 0" height="0.552" width="1" rotation="0 0 0"></a-plane> -->
             <a-gltf-model rotation="0 0 0 " position="0 0 0" scale="0.05 0.05 0.05" src="#PalcoEmblema"
                 animation="property: position; to: 0 0.01 0; dur: 1000; easing: easeInOutQuad; loop: true; dir: alternate"
                 animation-mixer="clip: Cena1"></a-gltf-model>
@@ -165,48 +243,6 @@
             </a-entity>
         </a-entity>
     </a-scene>
-
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-    const scene = document.querySelector('a-scene');
-    const sounds = {
-        0: document.querySelector('#SoundP0'),
-        1: document.querySelector('#SoundP1'),
-        2: document.querySelector('#SoundP2'),
-        3: document.querySelector('#SoundP3'),
-        4: document.querySelector('#SoundP4'),
-        5: document.querySelector('#SoundP5'),
-        6: document.querySelector('#SoundP6'),
-        7: document.querySelector('#SoundP7'),
-        8: document.querySelector('#SoundP8'),
-        9: document.querySelector('#SoundP9'),
-        10: document.querySelector('#SoundP10')
-    };
-
-    scene.addEventListener('targetFound', (event) => {
-        if (event.detail && event.detail.targetIndex !== undefined) {
-            const targetIndex = event.detail.targetIndex;
-            const sound = sounds[targetIndex];
-            if (sound) {
-                sound.volume = 1; // Set volume to 100%
-                sound.play();
-            }
-        }
-    });
-
-    scene.addEventListener('targetLost', (event) => {
-        if (event.detail && event.detail.targetIndex !== undefined) {
-            const targetIndex = event.detail.targetIndex;
-            const sound = sounds[targetIndex];
-            if (sound) {
-                sound.pause();
-                sound.currentTime = 0;
-            }
-        }
-    });
-});
-</script>
-
 </body>
 
 </html>
