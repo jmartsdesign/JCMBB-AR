@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+</head>
+
+<body>
+    <a-scene
+        mindar-image="imageTargetSrc: https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.5/examples/image-tracking/assets/card-example/card.mind;"
+        vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
+        <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+
+        <a-assets>
+            <a-asset-item id="avatarModel"
+                src="assets/CenaNE--Anima-V3-C10-Final-3.glb"></a-asset-item>
+            <audio id="targetSound" src="./assets/NarrativaAudio/P3-2024-7-18-16-29-37.mp3"></audio>
+        </a-assets>
+
+        <a-entity mindar-image-target="targetIndex: 0">
+            <a-gltf-model rotation="0 0 0 " position="0 0 0.1" scale="0.005 0.005 0.005" src="#avatarModel"
+                animation-mixer>
+            </a-gltf-model>
+            <a-entity sound="src: #targetSound"></a-entity>
+        </a-entity>
+    </a-scene>
+
+    <button id="startButton" style="position: absolute; z-index: 10;">Iniciar AR com Som</button>
+
+    <script>
+        document.getElementById('startButton').addEventListener('click', () => {
+            const sceneEl = document.querySelector('a-scene');
+            sceneEl.addEventListener('loaded', () => {
+                sceneEl.setAttribute('mindar-image', 'autoStart', true);
+            });
+        });
+    </script>
+
+    <script>
+        const sceneEl = document.querySelector('a-scene');
+        const soundEntity = document.querySelector('[sound]');
+
+        sceneEl.addEventListener('targetFound', event => {
+            console.log("Target found");
+            if (soundEntity.components.sound) {
+                console.log("Attempting to play sound");
+                soundEntity.components.sound.playSound();
+            } else {
+                console.log("Sound component not found");
+            }
+        });
+
+        sceneEl.addEventListener('targetLost', event => {
+            console.log("Target lost");
+            if (soundEntity.components.sound) {
+                console.log("Attempting to stop sound");
+                soundEntity.components.sound.stopSound();
+            } else {
+                console.log("Sound component not found");
+            }
+        });
+
+        const audioElement = document.querySelector('#targetSound');
+
+        sceneEl.addEventListener('targetFound', event => {
+            console.log("Target found");
+            audioElement.play().catch(error => console.log("Error playing audio:", error));
+        });
+    </script>
+    
+</body>
+
+</html>
