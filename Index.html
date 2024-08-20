@@ -7,11 +7,13 @@
 <head>
     <title>Escola do Coração</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v7.0.0/dist/aframe-extras.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
-   
+
     <link rel="stylesheet" type="text/css" href="style.css" />
+
+    <script src="./js/ar-audio.js"></script>
 
 </head>
 
@@ -24,7 +26,8 @@
         </div>
     </div>
 
-    <a-scene mindar-image="uiScanning: #example-scanning-overlay; imageTargetSrc: ./assets/PaineisInfo/targets.mind;"
+    <a-scene
+        mindar-image="filterMinCF: 0.1; filterBeta: 500; uiScanning: #example-scanning-overlay; imageTargetSrc: ./assets/PaineisInfo/targets.mind;"
         color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false"
         device-orientation-permission-ui="enabled: false">
         <a-assets>
@@ -60,7 +63,7 @@
 
         </a-assets>
 
-        <a-entity id="player" sound="src: #SoundAmbi; volume: 0.1; autoplay: true; loop: true"></a-entity> 
+        <a-entity id="player" sound="src: #SoundAmbi; volume: 0.1; autoplay: true; loop: true"></a-entity>
         <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
         <!-- JardimCMBB PAINEIS -------------------------------->
@@ -73,6 +76,7 @@
                 rotation="0 0 0">
                 <a-image src="#iPainelLegenda01" height="0.7" width="1"></a-image>
             </a-entity>
+            <a-entity id="soundEntity1" sound="src: #SoundP1; volume: 1; autoplay: false"></a-entity>
         </a-entity>
         <!-- Painel 02 -->
         <a-entity mindar-image-target="targetIndex: 1">
@@ -83,6 +87,7 @@
                 rotation="0 0 0">
                 <a-image src="#iPainelLegenda02" height="0.7" width="1"></a-image>
             </a-entity>
+            <a-entity id="soundEntity2" sound="src: #SoundP2; volume: 1; autoplay: false"></a-entity>
         </a-entity>
         <!-- Painel 03 -->
         <a-entity mindar-image-target="targetIndex: 2">
@@ -166,47 +171,32 @@
         </a-entity>
     </a-scene>
 
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-    const scene = document.querySelector('a-scene');
-    const sounds = {
-        0: document.querySelector('#SoundP0'),
-        1: document.querySelector('#SoundP1'),
-        2: document.querySelector('#SoundP2'),
-        3: document.querySelector('#SoundP3'),
-        4: document.querySelector('#SoundP4'),
-        5: document.querySelector('#SoundP5'),
-        6: document.querySelector('#SoundP6'),
-        7: document.querySelector('#SoundP7'),
-        8: document.querySelector('#SoundP8'),
-        9: document.querySelector('#SoundP9'),
-        10: document.querySelector('#SoundP10')
-    };
 
-    scene.addEventListener('targetFound', (event) => {
-        if (event.detail && event.detail.targetIndex !== undefined) {
-            const targetIndex = event.detail.targetIndex;
-            const sound = sounds[targetIndex];
-            if (sound) {
-                sound.volume = 1; // Set volume to 100%
-                sound.play();
-            }
-        }
-    });
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const targets = document.querySelectorAll('[mindar-image-target]');
 
-    scene.addEventListener('targetLost', (event) => {
-        if (event.detail && event.detail.targetIndex !== undefined) {
-            const targetIndex = event.detail.targetIndex;
-            const sound = sounds[targetIndex];
-            if (sound) {
-                sound.pause();
-                sound.currentTime = 0;
-            }
-        }
-    });
-});
-</script>
+            targets.forEach((target, index) => {
+                const sound = document.querySelector(`#SoundP${index + 1}`);
 
+                target.addEventListener('targetFound', () => {
+                    if (sound) {
+                        sound.volume = 1;
+                        sound.play();
+                    }
+                });
+
+                target.addEventListener('targetLost', () => {
+                    if (sound) {
+                        sound.pause();
+                        sound.currentTime = 0;
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>
+
+<!-- Mestrado de Design e Multimédia -->
