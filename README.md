@@ -4,12 +4,18 @@
 
 Experiencia imersiva em Realidade Aumentada para arte emblematica na Casa-Museu Bissaya Barreto
 
-Live demo AR in [https://jardimcmbb-ar.netlify.app/](https://jcmbb-ar.netlify.app/)
+Live demo AR in https://jcmbb-ar.netlify.app/
+<img src="https://github.com/user-attachments/assets/69da0f7d-3d77-45ff-be42-bb4c67623842" alt="JCMBB-VR" width="300" height="350">
 
-Live demo VR in https://jardimcmbb.netlify.app/
+----
 
 Imagens para teste
 ![P1-AR](https://github.com/user-attachments/assets/6fc0c9dd-494f-4081-bb7a-3417f66b6bfe)
 
 ![P9-AR](https://github.com/user-attachments/assets/7f35474f-0a8c-428e-9aa9-830b2f0b5970)
+
+----
+Live demo VR in https://jardimcmbb.netlify.app/
+
+<img src="https://github.com/user-attachments/assets/4d7c6982-fa3f-41b3-8ecf-b4182cd46f94" alt="JCMBB-AR" width="250" height="250">
 
