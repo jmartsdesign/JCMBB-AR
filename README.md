@@ -3,11 +3,13 @@ Jardim da Casa Museu Bissaya Barreto
 
 ![dW0KXTaEkT](https://github.com/user-attachments/assets/8ec1a680-55e7-453a-a1cf-a70caffe0520)
 
-Experiencia imersiva em Realidade Aumentada para arte emblematica na Casa-Museu Bissaya Barreto
+## Experiencia imersiva em Realidade Aumentada para arte emblematica na Casa-Museu Bissaya Barreto
 
 No contexto da Dissertação do Mestrado de Design e Multimédia, foi desenvolvida uma experiência imersiva de Realidade Aumentada, relativa à Arte Emblemática da Casa Museu Bissaya Barreto.
 
-Live demo AR in https://jcmbb-ar.netlify.app/
+Este projeto considera o trabalho desenvolvido pela Doutora [Filipa Medeiros](https://www.cienciavitae.pt/161D-72BB-37E5) do Centro Interuniversitário de Estudos Camonianos e é orientado pelo Professor [Jorge Cardoso](https://github.com/jorgecardoso), do Departamento de Engenharia Informática. 
+
+### Live demo AR in https://jcmbb-ar.netlify.app/
 
 <img src="https://github.com/user-attachments/assets/69da0f7d-3d77-45ff-be42-bb4c67623842" alt="JCMBB-VR" width="300" height="350">
 
